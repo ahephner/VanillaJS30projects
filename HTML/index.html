@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+    const canvas = document.querySelector('#draw');
+    var ctx = canvas.getContext('2d');
+
+    canvas.width= window.innerWidth;
+    canvas.height = window.innerHeight;
+
+//sets the type of line to make
+//here is the docs on <canvas> https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+
+    ctx.strokeStyle = '#BADA55';
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.lineWidth = 25;
+
+//only draw when cursor is down
+    let isDrawing = false; 
+    
+    //for sitting point of where to draw
+    let lastX = 0; 
+    let lastY = 0;
+    let hue = 0;
+    let direction = true; 
+
+    function draw(e){ 
+     //stop the function running
+     if(!isDrawing) return;
+     console.log(e);
+     ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+     //start a path
+     ctx.beginPath();
+     //start from mousedown
+     ctx.moveTo(lastX, lastY);
+     //go to on mouseup
+     ctx.lineTo(e.offsetX, e.offsetY);
+     ctx.stroke();
+
+     [lastX, lastY] = [e.offsetX, e.offsetY];
+     hue++;
+     if(hue > 360){
+         hue = 0;
+     }
+    
+    
+    if(ctx.lineWidth >= 100 || ctx.lineWidth <= 1){
+        direction = !direction;
+    }
+
+    if(direction){
+        ctx.lineWidth++;
+    }else{
+        ctx.lineWidth--;
+    }
+    }
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        //update lastX and lastY for mouse so it starts where mouse is on the screen
+        //without it always draws line from top left
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+        
+
+    });
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mouseout', () => isDrawing = false);
+</script>
+
+<style>
+  html, body {
+    margin:0;
+  }
+</style>
+
+</body>
+</html>
