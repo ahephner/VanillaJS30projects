@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log("hello iam a %s string!", "passing");
+
+
+    // Interpolated
+
+    // Styled
+    //%c in first element then the next are interpeted as styles
+    // console.log("%c i am text", "font-size: 50px; background: red;");
+
+    // warning!
+    //whats great is these show you exactly where on the html it is throwing err or warn
+    console.warn('test');
+
+    console.error("trouble");
+
+    console.info("this is information");
+    //.assert checks if it is true only runs on true
+    console.assert(1 ===1, "thats wrong")
+
+    //good for testing will only show on false 
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('test'), "no your wrong");
+
+    // Error :|
+
+    // Info
+
+    // Testing
+
+    // clearing console
+// console.clear();
+    // Viewing DOM Elements
+    console.dir(p);
+    // Grouping together
+    dogs.forEach(dog =>{
+        console.groupCollapsed(`${dog.name}`);
+        console.log(`This is ${dog.name}`);
+        console.log(`${dog.name} is ${dog.age} years old`);
+        console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+
+        //need to pass groupEnd the same info as start
+        console.groupEnd(`${dog.name}`);
+    });
+    
+    
+    // counting
+    //will count how many times you use something
+
+    console.count('AJ');    
+    console.count('AJ');
+    console.count('AJ');
+    console.count('AJ');
+    console.count("Jackie");
+    console.count('AJ');
+    console.count('AJ');
+    console.count("Jackie");
+    // timing
+    console.time('fetch time');
+    fetch('https://api.github.com/users/wesbos')
+    .then(data => data.json())
+        .then(data => {
+            console.timeEnd('fetch time');
+            console.log(data.followers);
+        });
+
+        //table
+        console.table(dogs);
+  </script>
+</body>
+</html>
