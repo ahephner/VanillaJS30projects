@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<script>
+ const pressed = [];
+ const secretCode = 'ajhep';
+
+ //grab window and passlisten for keys pressed
+    window.addEventListener('keyup', (e) =>{
+        
+        pressed.push(e.key);
+
+        //grab backword of the array and delete from the end 
+         pressed.splice(-secretCode.length -1, pressed.length - secretCode.length );
+        
+
+        if(pressed.join('').includes(secretCode)){
+            console.log('Ding Ding');
+            cornify_add();
+        }
+        console.log(pressed);
+    })
+</script>
+</body>
+</html>

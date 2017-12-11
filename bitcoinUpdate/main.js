@@ -8,7 +8,7 @@ btn.addEventListener('click', function(){
     XHR.onreadystatechange = function(){
         if(XHR.status == 200 && XHR.readyState== 4){
            var money = JSON.parse(XHR.responseText)
-           
+           console.log(money);
             var usa = money.bpi.USD.rate;
             var des = money.bpi.USD.description
             span.innerHTML = usa + " " + des;   
