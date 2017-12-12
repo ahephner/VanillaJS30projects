@@ -13,7 +13,7 @@
  //grab window and passlisten for keys pressed
     window.addEventListener('keyup', (e) =>{
         
-        pressed.push(e.key);
+        pressed.push(e.key.toLocaleLowerCase());
 
         //grab backword of the array and delete from the end 
          pressed.splice(-secretCode.length -1, pressed.length - secretCode.length );
